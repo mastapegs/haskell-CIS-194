@@ -4,7 +4,7 @@ module CourseTwo.LogAnalysis where
 
 import CourseTwo.Log
   ( LogMessage (..),
-    MessageType (Error, Info),
+    MessageType (Error, Info, Warning),
     testParse,
   )
 import Data.Foldable (for_)
@@ -16,6 +16,8 @@ parseMessage :: String -> LogMessage
 parseMessage string = case words string of
   "I" : timestamp : message ->
     LogMessage Info (read timestamp) (unwords message)
+  "W" : timestamp : message ->
+    LogMessage Warning (read timestamp) (unwords message)
   "E" : errorLevel : timestamp : message ->
     LogMessage (Error (read errorLevel)) (read timestamp) (unwords message)
   line -> Unknown $ show line
@@ -30,3 +32,6 @@ printResultsWithLines n = do
 
 printLines :: Int -> IO ()
 printLines = printResultsWithLines
+
+printAllLines :: IO ()
+printAllLines = printLines 6000
