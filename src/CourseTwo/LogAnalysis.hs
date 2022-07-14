@@ -2,7 +2,7 @@
 
 module CourseTwo.LogAnalysis where
 
-import CourseTwo.Log
+import CourseTwo.Deps.Log
   ( LogMessage (..),
     MessageType (Error, Info, Warning),
     testParse,
@@ -23,7 +23,7 @@ parseMessage string = case words string of
   line -> Unknown $ show line
 
 runParserWithLines :: Int -> IO [LogMessage]
-runParserWithLines n = testParse parse n "src/CourseTwo/error.log"
+runParserWithLines n = testParse parse n "src/CourseTwo/Deps/error.log"
 
 printResultsWithLines :: Int -> IO ()
 printResultsWithLines n = do
